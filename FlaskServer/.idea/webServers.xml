@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="23c58c51-3e12-4843-8d8c-17079dea5df1" name="FlaskServer" url="http://ec2-13-59-221-40.us-east-2.compute.amazonaws.com">
+        <fileTransfer host="ec2-13-59-221-40.us-east-2.compute.amazonaws.com" port="22" privateKey="$USER_HOME$/.ssh/csci5922.pem" rootFolder="/home/ubuntu" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
