@@ -4,7 +4,7 @@ import json
 
 properties = json.load(open('properties.json', 'r'))
 
-internal_server_ip = properties.ml_server_ip
+internal_server_ip = properties['ml_server_ip']
 app = Flask(__name__)
 
 
