@@ -104,4 +104,4 @@ venv.bak/
 .mypy_cache/
 
 #Flask Server stuff
-FlaskServer/.idea/**
+WebServer/.idea/**
