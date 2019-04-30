@@ -105,3 +105,5 @@ venv.bak/
 
 #Flask Server stuff
 WebServer/.idea/**
+**/tmp
+Credentials/*

@@ -1,10 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests
 import json
 
 properties = json.load(open('properties.json', 'r'))
 
-internal_server_ip = properties['ml_server_ip']
+ml_server_ip = properties['ml_server_ip']
 app = Flask(__name__)
 
 
@@ -15,6 +15,6 @@ def get_index_page():
 # Example routing function for ML classification call
 @app.route('/ml/classification', methods=['POST'])
 def classification_req_handler():
-    input_sample = '<Extract from POST data>'
-    response_data = requests.post('http://%s/classification' % internal_server_ip, data=input_sample)
+    input_sample = request.data
+    response_data = requests.post('http://%s/classification' % ml_server_ip, data=input_sample)
     return response_data
