@@ -1,0 +1,2 @@
+rsync -ahr -e 'ssh -i ~/.ssh/csci5922.pem' ~/CUBoulder/Projects/CSCI5922_Project/WebServer/ ubuntu@$1:/home/ubuntu/WebServer/
+rsync -ahr -e 'ssh -i ~/.ssh/csci5922.pem' ~/CUBoulder/Projects/CSCI5922_Project/WorkerServer/ ubuntu@$2:/home/ubuntu/WorkerServer/
