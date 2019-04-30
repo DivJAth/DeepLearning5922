@@ -105,5 +105,8 @@ venv.bak/
 
 #Flask Server stuff
 WebServer/.idea/**
+
 **/tmp
 Credentials/*
+handwritten_digit_recognition/models/**
+handwritten_digit_recognition/predictions/**
