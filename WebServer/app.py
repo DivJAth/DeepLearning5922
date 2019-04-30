@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request
+from flask_cors import CORS
 import requests
 import json
+import sys
 
 properties = json.load(open('properties.json', 'r'))
 
-ml_server_ip = properties['ml_server_ip']
+ip = properties['ml_server']['ip']
+port = properties['ml_server']['port']
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def get_index_page():
@@ -15,6 +18,8 @@ def get_index_page():
 # Example routing function for ML classification call
 @app.route('/ml/classification', methods=['POST'])
 def classification_req_handler():
-    input_sample = request.data
-    response_data = requests.post('http://%s/classification' % ml_server_ip, data=input_sample)
-    return response_data
+    response = requests.post('http://%s:%s/classification' % (ip, port), data=request.data)
+    return app.response_class(
+        response=response.text,
+        status=200
+    )
