@@ -8,8 +8,6 @@ from super_learner import SuperLearner
 # from super_learner_extension import SuperLearnerExtension
 import argparse
 import numpy as np
-import tensorflow as tf
-from keras.backend.tensorflow_backend import set_session
 import os
 
 PATH = './models/'
@@ -140,8 +138,4 @@ def main():
     print('Accuracy by Super Learning: ', ensemble_accuracy * 100, '%')
 
 if __name__ == '__main__':
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
-    set_session(sess)
     main()

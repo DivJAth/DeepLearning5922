@@ -3,8 +3,9 @@ import json
 import numpy as np
 from keras.utils import np_utils
 from keras.datasets import mnist
+import sys
 
-HOST_URL = 'ec2-3-16-143-139.us-east-2.compute.amazonaws.com:5000'
+HOST_URL = sys.argv[1]
 
 def normalize_images(images):
     H, W = 28, 28
