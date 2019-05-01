@@ -1,5 +1,5 @@
 import argparse
-import utils
+import handwritten_digit_recognition.utils
 
 def get_argument_parser(model_name):
     '''

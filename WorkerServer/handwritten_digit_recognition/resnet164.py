@@ -3,8 +3,8 @@ from keras.layers import (Input, Conv2D, BatchNormalization, ZeroPadding2D,
                           GlobalAveragePooling2D, Activation, Dense, add)
 from keras.models import Model
 from keras import optimizers
-from base_model import BaseModel
-from train import train
+from handwritten_digit_recognition.base_model import BaseModel
+from handwritten_digit_recognition.train import train
 
 DEPTH = 164 # or 1001
 MODEL_NAME = f'ResNet{DEPTH}' # This should be modified when the model name changes.
