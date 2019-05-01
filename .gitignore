@@ -108,5 +108,5 @@ WebServer/.idea/**
 
 **/tmp
 Credentials/*
-handwritten_digit_recognition/models/**
-handwritten_digit_recognition/predictions/**
+WorkerServer/handwritten_digit_recognition/models/**
+WorkerServer/handwritten_digit_recognition/predictions/**
