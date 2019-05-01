@@ -5,6 +5,8 @@ from keras.models import Model
 from keras import optimizers
 from handwritten_digit_recognition.base_model import BaseModel
 from handwritten_digit_recognition.train import train
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
 
 DEPTH = 164 # or 1001
 MODEL_NAME = f'ResNet{DEPTH}' # This should be modified when the model name changes.
@@ -129,4 +131,8 @@ def main():
     train(model, MODEL_NAME)
 
 if __name__ == '__main__':
-    main()
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    with tf.Session(config=config) as sess:
+        set_session(sess)
+        main()
