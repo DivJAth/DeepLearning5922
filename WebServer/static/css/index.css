@@ -11,3 +11,7 @@
 a.navbar-brand {
 	color: white;
 }
+
+#classification-input-card {
+	margin-top: 20px;
+}
