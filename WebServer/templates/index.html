@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ title }}</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
@@ -14,32 +14,32 @@
 	</nav>
 	<div class="container-fluid">
 		<div class="row">
+			<!--Sidebar-->
 			<div class="col-sm-2">
-				<!--Sidebar-->
-				<ul class="nav bg-light sidebar flex-column">
-					<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#classification-tab">Classification</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#object-detection-tab">Object Detection</a></li>
+				<ul class="nav bg-light sidebar flex-column" role="tablist">
+					<li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#classification-tab">Classification</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#object-detection-tab">Object Detection</a></li>
 				</ul>
 			</div>
 			<!--Sidebar tab panes-->
-			<div class="tab-content col-sm-10">
-				<div class="tab-pane container active" id="classification-tab">
+			<div class="col-sm-10 tab-content">
+				<div class="container-fluid tab-pane active" role="tabpanel" id="classification-tab">
 					<div id="classification-input-card" class="card">
 						<div class="card-header">
 							<h4 class="card-title">Upload Images</h4>
 							<p class="card-text">Select multiple files for upload. Classification of the input will be displayed below.</p>
 						</div>
 						<div class="card-body">
-							<input id="classification-input-files" type="file" multiple /><br><br>
-							<div id="classification-img-preview"></div>
+							<input id="classification-input-files" type="file" multiple="multiple" />
+							<div style="padding-top: 20px;" id="classification-img-preview"></div>
 						</div>
 						<div class="card-footer">
 							<button class="btn btn-primary">Submit</button>
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane container" id="object-detection-tab">
-						This is the object detection tab
+				<div class="container-fluid tab-pane" role="tabpanel" id="object-detection-tab">
+					This is the object detection tab
 				</div>
 			</div>
 		</div>
