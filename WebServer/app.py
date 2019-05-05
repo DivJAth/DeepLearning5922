@@ -19,8 +19,9 @@ def get_index_page():
 # Example routing function for ML classification call
 @app.route('/ml/classification', methods=['POST'])
 def classification_req_handler():
+    # print(request.files)
     response = requests.post('http://%s:%s/classification' % (ip, port), data=request.data)
     return app.response_class(
-        response=response.text,
+        response='response.text',
         status=200
     )
