@@ -27,3 +27,7 @@ def classification_handler():
         response=json.dumps({'predictions' : predictions.tolist()}),
         status=200
     )
+
+@app.route('/objectdetection', methods = ['POST'])
+def objectdetection_handler():
+    pass
