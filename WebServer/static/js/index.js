@@ -11,3 +11,16 @@ $("#classification-input-files").change((event) => {
         }
     }
 });
+
+$("#classification-form").submit((event) => {
+    const formData = new FormData(event.target);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/ml/classification", true);
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == 4) {
+            console.log(xhr.responseText);
+        }
+    };
+    xhr.send(formData);
+    event.preventDefault();
+})

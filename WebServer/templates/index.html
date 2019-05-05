@@ -30,11 +30,13 @@
 							<p class="card-text">Select multiple files for upload. Classification of the input will be displayed below.</p>
 						</div>
 						<div class="card-body">
-							<input id="classification-input-files" type="file" multiple="multiple" />
-							<div style="padding-top: 20px;" id="classification-img-preview"></div>
+							<form id="classification-form" method="POST" enctype="multipart/form-data">
+								<input name="classification-input-files" id="classification-input-files" type="file" multiple="multiple" />
+								<input class="btn btn-primary float-right" type="submit" value="Submit"/>
+							</form>
 						</div>
 						<div class="card-footer">
-							<button class="btn btn-primary">Submit</button>
+							<div id="classification-img-preview"></div>
 						</div>
 					</div>
 				</div>
