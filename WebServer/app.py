@@ -5,11 +5,12 @@ import json
 import sys
 
 properties = json.load(open('properties.json', 'r'))
-
 ip = properties['ml_server']['ip']
 port = properties['ml_server']['port']
+
 app = Flask(__name__)
 CORS(app)
+app.jinja_env.auto_reload = True
 
 @app.route('/')
 def get_index_page():
