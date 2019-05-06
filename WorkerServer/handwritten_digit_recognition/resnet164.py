@@ -136,3 +136,4 @@ if __name__ == '__main__':
     with tf.Session(config=config) as sess:
         set_session(sess)
         main()
+        sess.close()
