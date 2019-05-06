@@ -36,10 +36,12 @@ if __name__ == '__main__':
     (x_train, y_train), (x_val, y_val), (x_test, y_test) = load_mnist()
     x_test_batch = x_test[:5, :, :, :]
 
-    url = 'http://%s/ml/classification' % HOST_URL
-    payload = { 'x' : x_test_batch.tolist() }
-    print('Making POST request to server at %s...' % url)
-    r = requests.post(url, data=json.dumps(payload),
-        headers={'content-type' : 'application/json'})
-    print('Done')
-    print(r.text)
+    print(x_test_batch.shape)
+
+    # url = 'http://%s/ml/classification' % HOST_URL
+    # payload = { 'x' : x_test_batch.tolist() }
+    # print('Making POST request to server at %s...' % url)
+    # r = requests.post(url, data=json.dumps(payload),
+    #     headers={'content-type' : 'application/json'})
+    # print('Done')
+    # print(r.text)

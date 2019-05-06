@@ -12,8 +12,8 @@ from utils import *
 
 properties = json.load(open('properties.json', 'r'))
 
-ip = properties['ml_server']['ip'] if sys.argv[2] == 'ml_server' else properties['local_server']['ip']
-port = properties['ml_server']['port'] if sys.argv[2] == 'ml_server' else properties['local_server']['port']
+ip = properties['ml_server']['ip'] if len(sys.argv) > 2 else properties['local_server']['ip']
+port = properties['ml_server']['port'] if len(sys.argv) > 2 else properties['local_server']['port']
 
 app = Flask(__name__)
 CORS(app)
@@ -24,7 +24,6 @@ app.config['IMG_UPLOAD_DIR'] = './imgs'
 def get_index_page():
     return render_template('index.html', title='Deep Learning Portal')
 
-# Example routing function for ML classification call
 @app.route('/ml/classification', methods=['POST'])
 def classification_req_handler():
     files = request.files.to_dict(flat=False)['classification-input-files']

@@ -20,9 +20,13 @@ bucket = s3.Bucket(s3_bucket_name)
 def classification_handler():
     data = json.loads(request.data)
     x_test = np.array(data['x'])
+    print(x_test)
+    if len(x_test.shape) == 3:
+        x_test = np.expand_dims(x_test, axis=3)
     model = ResNet164()
     model.load_weights('./handwritten_digit_recognition/models/ResNet164.h5')
-    predictions = model.predict(x_test)
+    output = model.predict(x_test)
+    predictions = np.array([x.tolist().index(max(x)) for x in output])
     return app.response_class(
         response=json.dumps({'predictions' : predictions.tolist()}),
         status=200
