@@ -11,8 +11,9 @@ import os
 from utils import *
 
 properties = json.load(open('properties.json', 'r'))
-ip = properties['ml_server']['ip']
-port = properties['ml_server']['port']
+
+ip = properties['ml_server']['ip'] if sys.argv[2] == 'ml_server' else properties['local_server']['ip']
+port = properties['ml_server']['port'] if sys.argv[2] == 'ml_server' else properties['local_server']['port']
 
 app = Flask(__name__)
 CORS(app)
@@ -29,11 +30,10 @@ def classification_req_handler():
     files = request.files.to_dict(flat=False)['classification-input-files']
     saved_files = save_imgs_to_path(files, app.config['IMG_UPLOAD_DIR'])
     data = load_imgs_from_path(saved_files)
-    print(data)
-    # response = requests.post('http://%s:%s/classification' % (ip, port), data=request.data)
+    response = requests.post('http://%s:%s/classification' % (ip, port), data=json.dumps({'x' : data}))
     clear_imgs_from_path(app.config['IMG_UPLOAD_DIR'])
     return app.response_class(
-        response='response.text',
+        response=response.text,
         status=200
     )
 

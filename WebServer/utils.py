@@ -18,6 +18,6 @@ def clear_imgs_from_path(folderpath):
 def load_imgs_from_path(imgpaths):
     data = []
     for imgpath in imgpaths:
-        data.append(np.array(Image.open(imgpath)))
-    data = np.array(data)
+        entry = np.array(Image.open(imgpath)).tolist()
+        data.append(entry)
     return data
