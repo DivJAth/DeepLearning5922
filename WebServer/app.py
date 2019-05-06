@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request
 from flask_cors import CORS
 from PIL import Image
+import numpy as np
 import requests
 import json
 import sys
+import shutil
 import os
+
+from utils import *
 
 properties = json.load(open('properties.json', 'r'))
 ip = properties['ml_server']['ip']
@@ -23,9 +27,11 @@ def get_index_page():
 @app.route('/ml/classification', methods=['POST'])
 def classification_req_handler():
     files = request.files.to_dict(flat=False)['classification-input-files']
-    for file in files:
-        file.save(os.path.join(app.config['IMG_UPLOAD_DIR'], file.filename))
+    saved_files = save_imgs_to_path(files, app.config['IMG_UPLOAD_DIR'])
+    data = load_imgs_from_path(saved_files)
+    print(data)
     # response = requests.post('http://%s:%s/classification' % (ip, port), data=request.data)
+    clear_imgs_from_path(app.config['IMG_UPLOAD_DIR'])
     return app.response_class(
         response='response.text',
         status=200
