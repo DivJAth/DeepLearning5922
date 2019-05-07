@@ -18,7 +18,7 @@
 			<div class="col-sm-2">
 				<ul class="nav bg-light sidebar flex-column" role="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#classification-tab">Classification</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#object-detection-tab">Object Detection</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#fm-classification-tab">Fashion MNIST</a></li>
 				</ul>
 			</div>
 			<!--Sidebar tab panes-->
@@ -40,8 +40,22 @@
 						</div>
 					</div>
 				</div>
-				<div class="container-fluid tab-pane" role="tabpanel" id="object-detection-tab">
-					This is the object detection tab
+				<div class="container-fluid tab-pane" role="tabpanel" id="fm-classification-tab">
+					<div id="fm-classification-input-card" class="card">
+						<div class="card-header">
+							<h4 class="card-title">Upload Images</h4>
+							<p class="card-text">Select multiple files for upload. Classification of the input will be displayed below.</p>
+						</div>
+						<div class="card-body">
+							<form id="fm-classification-form" method="POST" enctype="multipart/form-data">
+								<input name="fm-classification-input-files" id="fm-classification-input-files" type="file" multiple="multiple" />
+								<input class="btn btn-primary float-right" type="submit" value="Submit"/>
+							</form>
+						</div>
+						<div class="card-footer">
+							<div id="fm-classification-img-preview"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

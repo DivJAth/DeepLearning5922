@@ -36,6 +36,18 @@ def classification_req_handler():
         status=200
     )
 
+@app.route('/ml/fm-classification', methods=['POST'])
+def fm_classification_handler():
+    files = request.files.to_dict(flat=False)['fm-classification-input-files']
+    saved_files = save_imgs_to_path(files, app.config['IMG_UPLOAD_DIR'])
+    data = load_imgs_from_path(saved_files)
+    response = requests.post('http://%s:%s/fm-classification' % (ip, port), data=json.dumps({'x' : data}))
+    clear_imgs_from_path(app.config['IMG_UPLOAD_DIR'])
+    return app.response_class(
+        response=response.text,
+        status=200
+    )
+
 @app.route('/ml/semantic_segmentation', methods=['POST'])
 def vgg16_semantic_segmentation_handler():
     pass

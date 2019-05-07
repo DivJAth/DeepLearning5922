@@ -5,6 +5,7 @@ import numpy as np
 import sys
 
 from handwritten_digit_recognition.resnet164 import ResNet164
+from fashion_mnist.predict import predict as fm_predict
 
 app = Flask(__name__)
 
@@ -15,7 +16,6 @@ s3 = boto3.resource('s3')
 bucket = s3.Bucket(s3_bucket_name)
 # bucket.download_file('test_file.txt', './tmp/test_file.txt')
 
-# Example function for classification task
 @app.route('/classification', methods=['POST'])
 def classification_handler():
     data = json.loads(request.data)
@@ -29,6 +29,16 @@ def classification_handler():
     predictions = np.array([x.tolist().index(max(x)) for x in output])
     return app.response_class(
         response=json.dumps({'predictions' : predictions.tolist()}),
+        status=200
+    )
+
+@app.route('/fm-classification', methods=['POST'])
+def fashion_mnist_classification_handler():
+    data = json.loads(request.data)
+    X_test = np.array(data['x'])
+    predictions = fm_predict(X_test)
+    return app.response_class(
+        response=json.dumps({'predictions' : predictions}),
         status=200
     )
 
