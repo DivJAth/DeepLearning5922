@@ -52,6 +52,7 @@ $("#fm-classification-form").submit((event) => {
     event.preventDefault();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 });
 
 $("#object-detection-form").submit((event) => {
@@ -81,6 +82,8 @@ $("#progressive-gan-generation-button").click((event) => {
         }
     };
     xhr.send();
+=======
+>>>>>>> refs/remotes/origin/master
 =======
 >>>>>>> refs/remotes/origin/master
 =======
