@@ -20,6 +20,7 @@
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#classification-tab">Classification</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#fm-classification-tab">Fashion MNIST</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#progressive-gan-generation-tab">Image Generation</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#object-detection-tab">Object Detection</a></li>
 				</ul>
 			</div>
 			<!--Sidebar tab panes-->
@@ -74,6 +75,22 @@
 						</div>
 					</div>
 				</div>
+				<div class="container-fluid tab-pane" role="tabpanel" id="object-detection-tab">
+						<div id="object-detection-input-card" class="card">
+							<div class="card-header">
+								<h4 class="card-title">Upload Image</h4>
+								<p class="card-text">Select an image for upload. Classification of the input will be displayed below.</p>
+							</div>
+							<div class="card-body">
+								<form id="object-detection-form" method="POST" enctype="multipart/form-data">
+									<input name="object-detection-input-files" id="object-detection-input-files" type="file" multiple="multiple" />
+									<input class="btn btn-primary float-right" type="submit" value="Submit"/>
+								</form>
+							</div>
+							<div class="card-footer">
+							</div>
+						</div>
+					</div>
 			</div>
 		</div>
 	</div>

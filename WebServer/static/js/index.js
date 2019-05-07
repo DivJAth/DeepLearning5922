@@ -52,6 +52,19 @@ $("#fm-classification-form").submit((event) => {
     event.preventDefault();
 });
 
+$("#object-detection-form").submit((event) => {
+    const formData = new FormData(event.target);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/ml/objectdetection", true);
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == 4) {
+            console.log(xhr.responseText);
+        }
+    };
+    xhr.send(formData);
+    event.preventDefault();
+});
+
 $("#progressive-gan-generation-button").click((event) => {
     const number = document.getElementById("random_number").value;
     const xhr = new XMLHttpRequest();
