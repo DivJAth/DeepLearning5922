@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from flask import send_file
 from flask_cors import CORS
 from PIL import Image
 import numpy as np
@@ -45,6 +46,14 @@ def fm_classification_handler():
     clear_imgs_from_path(app.config['IMG_UPLOAD_DIR'])
     return app.response_class(
         response=response.text,
+        status=200
+    )
+
+@app.route('/ml/progressive-gan-generation', methods=['GET'])
+def progressive_gan_generation_handler():
+    number = request.args.get('number')
+    return app.response_class(
+        response="https://s3.us-east-2.amazonaws.com/dl-portal-bucket/progressive_gans/img%s.png" % number,
         status=200
     )
 

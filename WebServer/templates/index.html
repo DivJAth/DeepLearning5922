@@ -19,6 +19,7 @@
 				<ul class="nav bg-light sidebar flex-column" role="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#classification-tab">Classification</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#fm-classification-tab">Fashion MNIST</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#progressive-gan-generation-tab">Image Generation</a></li>
 				</ul>
 			</div>
 			<!--Sidebar tab panes-->
@@ -54,6 +55,22 @@
 						</div>
 						<div class="card-footer">
 							<div id="fm-classification-img-preview"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid tab-pane" role="tabpanel" id="progressive-gan-generation-tab">
+					<div id="progressive-gan-generation-input-card" class="card">
+						<div class="card-header">
+							<h4 class="card-title">Upload Images</h4>
+							<p class="card-text">Select multiple files for upload. Classification of the input will be displayed below.</p>
+						</div>
+						<div class="card-body">
+							<label for="random_number">Enter number between 0-9</label>
+							<input type="number" name="random_number" id="random_number">
+							<input class="btn btn-primary float-right" id="progressive-gan-generation-button" type="button" value="Submit">
+						</div>
+						<div class="card-footer">
+							<img src="" id="progressive-gan-generation-results" width="100px"/>
 						</div>
 					</div>
 				</div>

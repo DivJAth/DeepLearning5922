@@ -51,3 +51,18 @@ $("#fm-classification-form").submit((event) => {
     xhr.send(formData);
     event.preventDefault();
 });
+
+$("#progressive-gan-generation-button").click((event) => {
+    const number = document.getElementById("random_number").value;
+    const xhr = new XMLHttpRequest();
+    const url = "/ml/progressive-gan-generation?number=" + number;
+    console.log("Making request to " + url);
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == 4) {
+            const img_element = document.getElementById("progressive-gan-generation-results");
+            img_element.src = xhr.responseText;
+        }
+    };
+    xhr.send();
+});
