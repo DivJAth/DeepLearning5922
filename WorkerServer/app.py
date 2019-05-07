@@ -5,6 +5,7 @@ import numpy as np
 import sys
 
 from handwritten_digit_recognition.resnet164 import ResNet164
+from Mask_RCNN.samples import object_recognition
 
 app = Flask(__name__)
 
@@ -20,18 +21,18 @@ bucket = s3.Bucket(s3_bucket_name)
 def classification_handler():
     data = json.loads(request.data)
     x_test = np.array(data['x'])
-    print(x_test)
-    if len(x_test.shape) == 3:
-        x_test = np.expand_dims(x_test, axis=3)
     model = ResNet164()
     model.load_weights('./handwritten_digit_recognition/models/ResNet164.h5')
-    output = model.predict(x_test)
-    predictions = np.array([x.tolist().index(max(x)) for x in output])
+    predictions = model.predict(x_test)
     return app.response_class(
         response=json.dumps({'predictions' : predictions.tolist()}),
         status=200
     )
 
-@app.route('/objectdetection', methods = ['POST'])
+@app.route('/objectdetection', methods = ['GET'])
 def objectdetection_handler():
-    pass
+    object_recognition.object_detection()
+    return app.response_class(
+        response=json.dumps({'predictions' : 'lol'}),
+        status=200
+    )
