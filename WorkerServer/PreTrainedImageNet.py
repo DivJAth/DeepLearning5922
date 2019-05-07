@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May  5 19:38:08 2019
-
-@author: divya
-"""
-
 import keras
 import numpy as np
 
@@ -32,12 +25,8 @@ resnet_model = resnet50.ResNet50(weights='imagenet')
 #Load the MobileNet model
 mobilenet_model = mobilenet.MobileNet(weights='imagenet') 
 
-
-
-
-dir_img = dir_data + r"/images_prepped_train/"
-image_path = 'C:\\Users\\divya\\Desktop\\Semester2\\DeepLearning\\Project'
-filename = "\\IMG_20181118_142405161.jpg"
+image_path = 'C:\\Users\\HP\\Pictures'
+filename = "\\dogs.jpg"
 
 # load an image in PIL format
 original_image = load_img(image_path+filename, target_size=(224, 224)) 
@@ -45,7 +34,7 @@ original_image = load_img(image_path+filename, target_size=(224, 224))
 numpy_image = img_to_array(original_image) 
 # Convert the image into 4D Tensor (samples, height, width, channels) by adding an extra dimension to the axis 0.
 input_image = np.expand_dims(numpy_image, axis=0) 
-image1 = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
+image1 = input_image.reshape((input_image.shape[0], input_image.shape[1], input_image.shape[2],3))
 print('PIL image size = ', original_image.size)
 print('NumPy image size = ', numpy_image.shape)
 print('Input image size = ', input_image.shape)
@@ -70,15 +59,15 @@ print ('label_vgg16 = ', label_vgg16)
 # inception_v3
 predictions_inception_v3 = inception_model.predict(processed_image_inception_v3)
 label_inception_v3 = decode_predictions(predictions_inception_v3)
-print (‘label_inception_v3 = ‘, label_inception_v3) 
+print ('label_inception_v3 = ', label_inception_v3) 
 
 # resnet50
 predictions_resnet50 = resnet_model.predict(processed_image_resnet50)
 label_resnet50 = decode_predictions(predictions_resnet50)
-print (‘label_resnet50 = ‘, label_resnet50) 
+print ('label_resnet50 = ', label_resnet50) 
 
 # mobilenet
 predictions_mobilenet = mobilenet_model.predict(processed_image_mobilenet)
 label_mobilenet = decode_predictions(predictions_mobilenet)
-print (‘label_mobilenet = ‘, label_mobilenet) 
+print ('label_mobilenet = ', label_mobilenet) 
 
