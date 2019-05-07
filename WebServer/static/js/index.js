@@ -58,7 +58,8 @@ $("#object-detection-form").submit((event) => {
     xhr.open("POST", "/ml/objectdetection", true);
     xhr.onreadystatechange = () => {
         if(xhr.readyState == 4) {
-            console.log(xhr.responseText);
+            const img_element = document.getElementById("object-detection-results");
+            img_element.src = xhr.responseText;
         }
     };
     xhr.send(formData);

@@ -51,9 +51,9 @@ def fm_classification_handler():
 
 @app.route('/ml/objectdetection', methods=['POST'])
 def objectdetection_handler():
-    file = request.files.to_dict(flat=False)['object-detection-input-files']
+    files = request.files.to_dict(flat=False)['object-detection-input-files']
     saved_files = save_imgs_to_path(files, app.config['IMG_UPLOAD_DIR'])
-    response = request.post('http://%s:%s/objectdetection' % (ip, port), files={'file' : open(saved_files[0], 'r')})
+    response = requests.post('http://%s:%s/objectdetection' % (ip, port), files={'file' : open(saved_files[0], 'rb')})
     clear_imgs_from_path(app.config['IMG_UPLOAD_DIR'])
     return app.response_class(
         response=response.text,
