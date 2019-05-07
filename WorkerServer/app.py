@@ -3,13 +3,11 @@ import boto3
 import json
 import numpy as np
 import sys
+from flask import send_file
 
 from handwritten_digit_recognition.resnet164 import ResNet164
-<<<<<<< HEAD
 from fashion_mnist.predict import predict as fm_predict
-=======
 from Mask_RCNN.samples import object_recognition
->>>>>>> 698e13af821b7749584b0e7073410f0e00b45ddf
 
 app = Flask(__name__)
 
@@ -32,7 +30,6 @@ def classification_handler():
         status=200
     )
 
-<<<<<<< HEAD
 @app.route('/fm-classification', methods=['POST'])
 def fashion_mnist_classification_handler():
     data = json.loads(request.data)
@@ -44,11 +41,14 @@ def fashion_mnist_classification_handler():
     )
 
 @app.route('/objectdetection', methods = ['POST'])
-=======
-@app.route('/objectdetection', methods = ['GET'])
->>>>>>> 698e13af821b7749584b0e7073410f0e00b45ddf
 def objectdetection_handler():
-    object_recognition.object_detection()
+    image2=request.files.get('image', '')
+    print(type(image2))
+    image = object_recognition.object_detection(image2)
+
+    #if image
+    return send_file("foo.png", mimetype='image/png')
+
     return app.response_class(
         response=json.dumps({'predictions' : 'lol'}),
         status=200
