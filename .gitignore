@@ -111,3 +111,4 @@ Credentials/*
 WebServer/imgs
 WorkerServer/handwritten_digit_recognition/models/**
 WorkerServer/handwritten_digit_recognition/predictions/**
+WorkerServer/super_resolution/weights/**
