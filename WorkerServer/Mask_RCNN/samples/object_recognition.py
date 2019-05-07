@@ -23,12 +23,21 @@ print(os.getcwd())
 #print('+'*100)
 
 
+<<<<<<< HEAD
 from mask_rcnn.samples.mrcnn import utils
 from mask_rcnn.samples.mrcnn import model as modellib
 from mask_rcnn.samples.mrcnn import visualize
 sys.path.append(os.path.join(ROOT_DIR, "samples/coco/"))
 
 from mask_rcnn.samples.coco import coco
+=======
+from Mask_RCNN.samples.mrcnn import utils
+from Mask_RCNN.samples.mrcnn import model as modellib
+from Mask_RCNN.samples.mrcnn import visualize
+sys.path.append(os.path.join(ROOT_DIR, "samples/coco/"))
+
+from Mask_RCNN.samples.coco import coco
+>>>>>>> refs/remotes/origin/master
 
 
 from matplotlib.backends.backend_agg import FigureCanvasAgg

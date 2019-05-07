@@ -111,5 +111,8 @@ Credentials/*
 WebServer/imgs
 WorkerServer/handwritten_digit_recognition/models/**
 WorkerServer/handwritten_digit_recognition/predictions/**
+<<<<<<< HEAD
 WorkerServer/super_resolution/weights/**
 WebServer/progressive_gans/*.pkl
+=======
+>>>>>>> refs/remotes/origin/master

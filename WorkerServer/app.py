@@ -1,5 +1,8 @@
 from flask import Flask, request
+<<<<<<< HEAD
 from flask import send_file
+=======
+>>>>>>> refs/remotes/origin/master
 import boto3
 import json
 import numpy as np
@@ -8,7 +11,11 @@ from flask import send_file
 
 from handwritten_digit_recognition.resnet164 import ResNet164
 from fashion_mnist.predict import predict as fm_predict
+<<<<<<< HEAD
 from mask_rcnn.samples import object_recognition
+=======
+from Mask_RCNN.samples import object_recognition
+>>>>>>> refs/remotes/origin/master
 
 app = Flask(__name__)
 
@@ -23,8 +30,11 @@ bucket = s3.Bucket(s3_bucket_name)
 def classification_handler():
     data = json.loads(request.data)
     x_test = np.array(data['x'])
+<<<<<<< HEAD
     if len(x_test.shape) < 4:
         x_test = np.expand_dims(x_test, axis=3)
+=======
+>>>>>>> refs/remotes/origin/master
     model = ResNet164()
     model.load_weights('./handwritten_digit_recognition/models/ResNet164.h5')
     predictions = model.predict(x_test)
@@ -45,6 +55,7 @@ def fashion_mnist_classification_handler():
 
 @app.route('/objectdetection', methods = ['POST'])
 def objectdetection_handler():
+<<<<<<< HEAD
     image2 = request.files.get('file', '')
     image = object_recognition.object_detection(image2)
 
@@ -52,5 +63,16 @@ def objectdetection_handler():
 
     return app.response_class(
         response='https://s3.us-east-2.amazonaws.com/dl-portal-bucket/object_detection/foo.png',
+=======
+    image2=request.files.get('image', '')
+    print(type(image2))
+    image = object_recognition.object_detection(image2)
+
+    #if image
+    return send_file("foo.png", mimetype='image/png')
+
+    return app.response_class(
+        response=json.dumps({'predictions' : 'lol'}),
+>>>>>>> refs/remotes/origin/master
         status=200
     )

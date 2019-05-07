@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
+<<<<<<< HEAD
 from flask import send_file
+=======
+>>>>>>> refs/remotes/origin/master
 from flask_cors import CORS
 from PIL import Image
 import numpy as np
@@ -59,7 +62,6 @@ def objectdetection_handler():
         response=response.text,
         status=200
     )
-
 
 @app.route('/ml/progressive-gan-generation', methods=['GET'])
 def progressive_gan_generation_handler():

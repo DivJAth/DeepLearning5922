@@ -23,7 +23,11 @@ import keras.layers as KL
 import keras.engine as KE
 import keras.models as KM
 
+<<<<<<< HEAD
 from mask_rcnn.samples.mrcnn import utils
+=======
+from Mask_RCNN.samples.mrcnn import utils
+>>>>>>> refs/remotes/origin/master
 
 # Requires TensorFlow 1.3+ and Keras 2.0.8+.
 from distutils.version import LooseVersion
