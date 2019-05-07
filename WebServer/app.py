@@ -1,8 +1,5 @@
 from flask import Flask, render_template, request
-<<<<<<< HEAD
 from flask import send_file
-=======
->>>>>>> refs/remotes/origin/master
 from flask_cors import CORS
 from PIL import Image
 import numpy as np
