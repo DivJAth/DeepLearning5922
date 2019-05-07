@@ -1,11 +1,10 @@
 import requests
 import json
 import numpy as np
-from keras.utils import np_utils
-from keras.datasets import mnist
+import keras
 import sys
 
-HOST_URL = sys.argv[1]
+HOST_URL, port = sys.argv[1], sys.argv[2]
 
 def normalize_images(images):
     H, W = 28, 28
@@ -33,15 +32,14 @@ def load_mnist():
     return (x_train, y_train), (x_val, y_val), (x_test, y_test)
 
 if __name__ == '__main__':
-    (x_train, y_train), (x_val, y_val), (x_test, y_test) = load_mnist()
-    x_test_batch = x_test[:5, :, :, :]
+    fashion_mnist = keras.datasets.fashion_mnist
+    (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
-    print(x_test_batch.shape)
-
-    # url = 'http://%s/ml/classification' % HOST_URL
-    # payload = { 'x' : x_test_batch.tolist() }
-    # print('Making POST request to server at %s...' % url)
-    # r = requests.post(url, data=json.dumps(payload),
-    #     headers={'content-type' : 'application/json'})
-    # print('Done')
-    # print(r.text)
+    url = 'http://%s:%s/fashion-mnist-classification' % (HOST_URL, port)
+    payload = { 'x' : test_images.tolist() }
+    print('Making POST request to server at %s...' % url)
+    r = requests.post(url, data=json.dumps(payload),
+        headers={'content-type' : 'application/json'})
+    data = json.loads(r.text)
+    data = np.array(data['x'])
+    print(np.sum(data == test_labels)/len(test_labels))
