@@ -7,10 +7,11 @@ References:
 
 • https://github.com/matterport/Mask_RCNN 
 
-.Residual Dense Network for Image Super-Resolution
+• Residual Dense Network for Image Super-Resolution
 
- https://arxiv.org/abs/1802.08797
+•  https://arxiv.org/abs/1802.08797
  
-Progressive Growing of GANs for Improved Quality, Stability, and Variation
-https://arxiv.org/abs/1710.10196
+• Progressive Growing of GANs for Improved Quality, Stability, and Variation
+
+•  https://arxiv.org/abs/1710.10196
 
