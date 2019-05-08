@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import keras
 import keras.applications
 from keras.models import Model
 from keras.layers import Input
@@ -43,7 +44,7 @@ def give_color_to_seg_img(segments,n_classes):
     colors = sns.color_palette("hls", n_classes)
     
     for c in range(n_classes):
-        segc = (seg == c)
+        segc = (segments == c)
         seg_img[:,:,0] += (segc*( colors[c][0] ))
         seg_img[:,:,1] += (segc*( colors[c][1] ))
         seg_img[:,:,2] += (segc*( colors[c][2] ))
@@ -51,9 +52,9 @@ def give_color_to_seg_img(segments,n_classes):
     return(seg_img)
 
 def getImageArr( path , width , height ):
-        img = cv2.imread(path, 1)
-        img = np.float32(cv2.resize(img, ( width , height ))) / 127.5 - 1
-        return img
+    img = cv2.imread(path, 1)       
+    img = np.float32(cv2.resize(img, ( width , height ))) / 127.5 - 1
+    return img
 
 def getSegmentationArr( path , nClasses ,  width , height  ):
     seg_labels = np.zeros((  height , width  , nClasses ))
@@ -63,15 +64,13 @@ def getSegmentationArr( path , nClasses ,  width , height  ):
 
     for c in range(nClasses):
         seg_labels[: , : , c ] = (img == c ).astype(int)
-    ##seg_labels = np.reshape(seg_labels, ( width*height,nClasses  ))
     return seg_labels
 
 
 
 
 def FCN8( nClasses ,  input_height=224, input_width=224):
-    ## input_height and width must be devisible by 32 because maxpooling with filter size = (2,2) is operated 5 times,
-    ## which makes the input_height and width 2^5 = 32 times smaller
+
     assert input_height%32 == 0
     assert input_width%32 == 0
     IMAGE_ORDERING =  "channels_last" 
@@ -175,7 +174,6 @@ def showImagePanel(seg):
 def imageReader(fileName,path):
     return cv2.imread(path+fileName, cv2.IMREAD_UNCHANGED)
 
-
 def resize(img,resizeDim):
     ht,wt=resizeDim
     resizeImg=cv2.resize(img, resizeDim, interpolation=cv2.INTER_LINEAR)
@@ -183,7 +181,7 @@ def resize(img,resizeDim):
 
 ##########################################################################################
 
-dir_data = r"C:/Users/divya/Desktop/Semester2/DeepLearning/Project/dataset1"
+dir_data = r"/home/ubuntu/WorkerServer/fcn8/dataset1"
 dir_seg = dir_data + r"/annotations_prepped_train/"
 dir_img = dir_data + r"/images_prepped_train/"
 
@@ -258,16 +256,15 @@ print(X.shape,Y.shape)
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID" 
 config = tf.ConfigProto()
 config.gpu_options.per_process_gpu_memory_fraction = 0.95
-config.gpu_options.visible_device_list = "2" 
+#config.gpu_options.visible_device_list = "1" 
 set_session(tf.Session(config=config))   
-
 print("python {}".format(sys.version))
 print("keras version {}".format(keras.__version__)); del keras
 print("tensorflow version {}".format(tf.__version__))
 
 
 ## location of VGG weights
-VGG_Weights_path =  r"C:/Users/divya/Desktop/Semester2/DeepLearning/Project"+r"/Model/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
+VGG_Weights_path =  r"/home/ubuntu/WorkerServer/fcn8/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
 train_rate = 0.85
 index_train = np.random.choice(X.shape[0],int(X.shape[0]*train_rate),replace=False)
 index_test  = list(set(range(X.shape[0])) - set(index_train))
@@ -279,35 +276,37 @@ print(X_train.shape, y_train.shape)
 print(X_test.shape, y_test.shape)
 
 
+model=FCN8(nClasses=n_classes,input_height=224,input_width=224)
+#model.summary()
+#sgd = optimizers.SGD(lr=1E-2, decay=5**(-4), momentum=0.9, nesterov=True)
+#model.compile(loss='categorical_crossentropy',
+#              optimizer=sgd,
+#              metrics=['accuracy'])
+
+#hist1 = model.fit(X_train,y_train,
+#                  validation_data=(X_test,y_test),
+#                  batch_size=32,epochs=200,verbose=2)
+
+#model.save('FCN8.h5')
+model=load_model('FCN8.h5')
+model.summary()
 sgd = optimizers.SGD(lr=1E-2, decay=5**(-4), momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy',
               optimizer=sgd,
               metrics=['accuracy'])
 
-hist1 = model.fit(X_train,y_train,
-                  validation_data=(X_test,y_test),
-                  batch_size=32,epochs=70,verbose=2)
-
-
 y_pred = model.predict(X_test)
 y_predi = np.argmax(y_pred, axis=3)
 y_testi = np.argmax(y_test, axis=3)
 print(y_testi.shape,y_predi.shape)
 IoU(y_testi,y_predi)
-model.summary()
 
 
+#for key in ['loss', 'val_loss']:
+#    plt.plot(hist1.history[key],label=key)
+#plt.legend()
+#plt.show()
 
-for key in ['loss', 'val_loss']:
-    plt.plot(hist1.history[key],label=key)
-plt.legend()
-plt.show()
-
-y_pred = model.predict(X_test)
-y_predi = np.argmax(y_pred, axis=3)
-y_testi = np.argmax(y_test, axis=3)
-print(y_testi.shape,y_predi.shape)
-IoU(y_testi,y_predi)
 
 im = X_test[0:3,:,:]
 crpim = im 
@@ -323,6 +322,10 @@ plt.subplot(1,3,3)
 plt.imshow( np.asarray(crpim[2,:,:]) )
 masked_imclass = np.ma.masked_where(imclass == 0, imclass)
 plt.imshow( masked_imclass, alpha=0.5 )
+plt.savefig('foo.png')
+
+#from matplotlib import pyplot as plt
+#plt.savefig('foo.png')
 
 
 
@@ -353,29 +356,3 @@ plt.imshow( masked_imclass, alpha=0.5 )
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-model_config = {
-        "output_height": 96, 
-        "input_height": 384, 
-        "input_width": 576, 
-        "n_classes": 151, 
-        "model_class": "resnet50_pspnet", 
-        "output_width": 144
-    }
-
-model_url = "https://github.com/divamgupta/image-segmentation-keras/releases/download/pretrained_model_1/r2_voc12_resnetpspnet_384x576.24"
-latest_weights =  keras.utils.get_file( model_url.split("/")[-1] , model_url  )
-
-model = model_from_name[ model_config['model_class']  ]( model_config['n_classes'] , input_height=model_config['input_height'] , input_width=model_config['input_width'] )
-model.load_weights(latest_weights)

@@ -5,9 +5,11 @@ import json
 import numpy as np
 import sys
 from flask import send_file
+from PIL import Image
 
 from handwritten_digit_recognition.resnet164 import ResNet164
 from fashion_mnist.predict import predict as fm_predict
+from super_resolution.custom_test import predict as sr_predict
 from mask_rcnn.samples import object_recognition
 
 app = Flask(__name__)
@@ -28,8 +30,9 @@ def classification_handler():
     model = ResNet164()
     model.load_weights('./handwritten_digit_recognition/models/ResNet164.h5')
     predictions = model.predict(x_test)
+    predictions = [y.tolist().index(max(y)) for y in predictions]
     return app.response_class(
-        response=json.dumps({'predictions' : predictions.tolist()}),
+        response=json.dumps({'predictions' : predictions}),
         status=200
     )
 
@@ -54,3 +57,18 @@ def objectdetection_handler():
         response='https://s3.us-east-2.amazonaws.com/dl-portal-bucket/object_detection/foo.png',
         status=200
     )
+
+@app.route('/superresolution', methods=['POST'])
+def superresolution_handler():
+    data = json.loads(request.data)
+    X_test = np.array(data['x'])
+    predictions = sr_predict(X_test)
+    Image.fromarray(predictions).save('./super_resolution/imgs/out.jpg')
+    bucket.upload_file('./super_resolution/imgs/out.jpg', 'super_resolution/out.jpg')
+
+    return app.response_class(
+        response='https://s3.us-east-2.amazonaws.com/dl-portal-bucket/super_resolution/out.jpg',
+        status=200
+    )
+
+

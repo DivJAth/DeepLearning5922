@@ -19,17 +19,9 @@
 				<ul class="nav bg-light sidebar flex-column" role="tablist">
 					<li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#classification-tab">Classification</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#fm-classification-tab">Fashion MNIST</a></li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#progressive-gan-generation-tab">Image Generation</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#object-detection-tab">Object Detection</a></li>
-=======
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> refs/remotes/origin/master
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#super-resolution-tab">Super Resolution</a></li>
 				</ul>
 			</div>
 			<!--Sidebar tab panes-->
@@ -50,6 +42,7 @@
 							<div id="classification-img-preview"></div>
 						</div>
 					</div>
+					<div class="card" id="results-card"></div>
 				</div>
 				<div class="container-fluid tab-pane" role="tabpanel" id="fm-classification-tab">
 					<div id="fm-classification-input-card" class="card">
@@ -68,9 +61,6 @@
 						</div>
 					</div>
 				</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				<div class="container-fluid tab-pane" role="tabpanel" id="progressive-gan-generation-tab">
 					<div id="progressive-gan-generation-input-card" class="card">
 						<div class="card-header">
@@ -88,28 +78,39 @@
 					</div>
 				</div>
 				<div class="container-fluid tab-pane" role="tabpanel" id="object-detection-tab">
-						<div id="object-detection-input-card" class="card">
-							<div class="card-header">
-								<h4 class="card-title">Upload Image</h4>
-								<p class="card-text">Select an image for upload. Classification of the input will be displayed below.</p>
-							</div>
-							<div class="card-body">
-								<form id="object-detection-form" method="POST" enctype="multipart/form-data">
-									<input name="object-detection-input-files" id="object-detection-input-files" type="file" multiple="multiple" />
-									<input class="btn btn-primary float-right" type="submit" value="Submit"/>
-								</form>
-							</div>
-							<div class="card-footer">
-								<img src="" id="object-detection-results" width="100%"/>
-							</div>
+					<div id="object-detection-input-card" class="card">
+						<div class="card-header">
+							<h4 class="card-title">Upload Image</h4>
+							<p class="card-text">Select an image for upload. Classification of the input will be displayed below.</p>
+						</div>
+						<div class="card-body">
+							<form id="object-detection-form" method="POST" enctype="multipart/form-data">
+								<input name="object-detection-input-files" id="object-detection-input-files" type="file" multiple="multiple" />
+								<input class="btn btn-primary float-right" type="submit" value="Submit"/>
+							</form>
+						</div>
+						<div class="card-footer">
+							<img src="" id="object-detection-results" width="100%"/>
 						</div>
 					</div>
-=======
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> refs/remotes/origin/master
+				</div>
+				<div class="container-fluid tab-pane" role="tabpanel" id="super-resolution-tab">
+					<div id="super-resolution-input-card" class="card">
+						<div class="card-header">
+							<h4 class="card-title">Upload Image</h4>
+							<p class="card-text">Select an image for upload. Classification of the input will be displayed below.</p>
+						</div>
+						<div class="card-body">
+							<form id="super-resolution-form" method="POST" enctype="multipart/form-data">
+								<input name="super-resolution-input-files" id="super-resolution-input-files" type="file" multiple="multiple" />
+								<input class="btn btn-primary float-right" type="submit" value="Submit"/>
+							</form>
+						</div>
+						<div class="card-footer">
+							<img src="" id="super-resolution-results" width="100%"/>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -32,7 +32,8 @@ $("#classification-form").submit((event) => {
     xhr.open("POST", "/ml/classification", true);
     xhr.onreadystatechange = () => {
         if(xhr.readyState == 4) {
-            console.log(xhr.responseText);
+            const response = JSON.parse(xhr.responseText);
+            console.log(response);
         }
     };
     xhr.send(formData);
@@ -50,9 +51,6 @@ $("#fm-classification-form").submit((event) => {
     };
     xhr.send(formData);
     event.preventDefault();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 });
 
 $("#object-detection-form").submit((event) => {
@@ -62,6 +60,20 @@ $("#object-detection-form").submit((event) => {
     xhr.onreadystatechange = () => {
         if(xhr.readyState == 4) {
             const img_element = document.getElementById("object-detection-results");
+            img_element.src = xhr.responseText;
+        }
+    };
+    xhr.send(formData);
+    event.preventDefault();
+});
+
+$("#super-resolution-form").submit((event) => {
+    const formData = new FormData(event.target);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/ml/superresolution", true);
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == 4) {
+            const img_element = document.getElementById("super-resolution-results");
             img_element.src = xhr.responseText;
         }
     };
@@ -82,10 +94,4 @@ $("#progressive-gan-generation-button").click((event) => {
         }
     };
     xhr.send();
-=======
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> refs/remotes/origin/master
-=======
->>>>>>> refs/remotes/origin/master
 });

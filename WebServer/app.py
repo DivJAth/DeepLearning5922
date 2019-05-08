@@ -68,6 +68,18 @@ def progressive_gan_generation_handler():
         status=200
     )
 
+@app.route('/ml/superresolution', methods=['POST'])
+def superresolution_handler():
+    files = request.files.to_dict(flat=False)['super-resolution-input-files']
+    saved_files = save_imgs_to_path(files, app.config['IMG_UPLOAD_DIR'])
+    data = load_imgs_from_path(saved_files)[0]
+    response = requests.post('http://%s:%s/superresolution' % (ip, port), data=json.dumps({'x' : data}))
+    clear_imgs_from_path(app.config['IMG_UPLOAD_DIR'])
+    return app.response_class(
+        response=response.text,
+        status=200
+    )
+
 @app.route('/ml/semantic_segmentation', methods=['POST'])
 def vgg16_semantic_segmentation_handler():
     pass
